@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      /**
+      * Leetcode problem: https://leetcode.com/problems/redundant-connection/
+      */
+      /**
+       * @param {number[][]} edges
+       * @return {number[]}
+       */
+      var findRedundantConnection = function(edges) {
+        const root = arrayToGraph(edges);
+        const cycleStack = [];
+        findCycleDFS(root, root.value, cycleStack);
+        // After getting the nodes involved in the cycle,
+        // Find the last edge in the list part of it
+        console.log(cycleStack);
+        console.log(edges);
+        for (let i = edges.length - 1; i >= 0; i--) {
+          const edge = edges[i];
+          if (cycleStack.indexOf(edge[0]) > -1 && cycleStack.indexOf(edge[1]) > -1) {
+            return edge;
+          }
+        }
+      };
+
+      var findCycleDFS = function(node, parent, cycleStack) {
+        if (node === null) {
+          return false;
+        }
+        const childs = Object.values(node.childs);
+        for (const child of childs) {
+          // If there is a cycle found in another child, stop the iteration
+          if (cycleStack.length) {
+            return false;
+          }
+          // To avoid returning to the parent
+          if (child.value !== parent) {
+            if (node.childs[child.value].visited) {
+              cycleStack.push(node.childs[child.value].value);
+              cycleStack.push(node.value);
+              return true;
+            }
+            node.childs[child.value].visited = true;
+            if (findCycleDFS(node.childs[child.value], node.value, cycleStack)) {
+              if (cycleStack.indexOf(node.value) < 0) {
+                cycleStack.push(node.value);
+                return true;
+              }
+              return false;
+            }
+          }
+        }
+      };
+
+      var arrayToGraph = function(array) {
+        const root = new TreeNode(0);
+        for (let i = 0; i < array.length; i++) {
+          const edge = array[i];
+          if (root.childs[edge[0]] === undefined) {
+            root.childs[edge[0]] = new TreeNode(edge[0]);
+          }
+          if (root.childs[edge[1]] === undefined) {
+            root.childs[edge[1]] = new TreeNode(edge[1]);
+          }
+          root.childs[edge[0]].childs[edge[1]] = root.childs[edge[1]];
+          root.childs[edge[1]].childs[edge[0]] = root.childs[edge[0]];
+        }
+        return root;
+      }
+
+      /**
+      * Test Case
+      */
+      function TreeNode(val) {
+        this.value = parseInt(val);
+        this.visited = false;
+        this.childs = {};
+      }
+
+      const testCase1 = [[1,2], [2,3], [3,4], [1,4], [1,5]];
+      const expected1 = [1,4];
+      const answer1 = findRedundantConnection(testCase1);
+      console.log('solution get problem 1', answer1);
+      console.log('solution expected problem 1', expected1);
+      console.log(answer1[0] === expected1[0] && answer1[1] === expected1[1] ?
+      'Problem 1 solved' : 'Wrong answer');
+      const testCase2 = [[1,2], [1,3], [3,4], [3,5], [3,6], [5,7], [6,7]];
+      const expected2 = [6,7];
+      const answer2 = findRedundantConnection(testCase2);
+      console.log('solution get problem 2', answer2);
+      console.log('solution expected problem 2', expected2);
+      console.log(answer2[0] === expected2[0] && answer2[1] === expected2[1] ?
+      'Problem 2 solved' : 'Wrong answer');
+
+
+    </script>
+
+  </body>
+</html>
