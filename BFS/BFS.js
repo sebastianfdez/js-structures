@@ -1,4 +1,4 @@
-var dfs = (start) => {
+var dfs = function(start) {
   var listToExplore = [ start ];
   nodes[ start ].visited = true;
   while ( listToExplore.length > 0 ) {
