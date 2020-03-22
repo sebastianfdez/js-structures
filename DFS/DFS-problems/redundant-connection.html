@@ -67,7 +67,7 @@
         }
         return root;
       }
-
+      
       function TreeNode(val) {
         this.value = parseInt(val);
         this.visited = false;
@@ -80,11 +80,11 @@
 
       const testCase1 = [[1,2], [2,3], [3,4], [1,4], [1,5]];
       const expected1 = [1,4];
-        const answer1 = findRedundantConnection(testCase1);
-        console.log('solution get problem 1', answer1);
-        console.log('solution expected problem 1', expected1);
-        console.log(answer1[0] === expected1[0] && answer1[1] === expected1[1] ?
-        'Problem 1 solved' : 'Wrong answer');
+      const answer1 = findRedundantConnection(testCase1);
+      console.log('solution get problem 1', answer1);
+      console.log('solution expected problem 1', expected1);
+      console.log(answer1[0] === expected1[0] && answer1[1] === expected1[1] ?
+      'Problem 1 solved' : 'Wrong answer');
       const testCase2 = [[1,2], [1,3], [3,4], [3,5], [3,6], [5,7], [6,7]];
       const expected2 = [6,7];
       const answer2 = findRedundantConnection(testCase2);

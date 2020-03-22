@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      /**
+      * Leetcode problem: https://leetcode.com/problems/binary-tree-maximum-path-sum/submissions/
+      */
+      function TreeNode(val) {
+        this.val = val;
+        this.left = this.right = null;
+      }
+      /**
+       * @param {TreeNode} root
+       * @return {number}
+       */
+      var maxPathSum = function(root) {
+        const [maxSum, maxSumWith] = getMaxPathSumDFS(root);
+        return Math.max(maxSum, maxSumWith);
+      };
+
+      var getMaxPathSumDFS = function(node) {
+        if (node === null) {
+          return [-Infinity, 0];
+        }
+        const sumLeft = getMaxPathSumDFS(node.left);
+        const sumRight = getMaxPathSumDFS(node.right);
+        // Check maximum combination or max result from the children
+        const maxSum = Math.max(
+          node.val,
+          sumLeft[0],
+          sumRight[0],
+          node.val + sumLeft[1],
+          node.val + sumRight[1],
+          node.val + sumLeft[1] + sumRight[1],
+        );
+        // Give to the parent the maximum value including itself
+        const maxSumWith = Math.max(
+          node.val,
+          node.val + sumLeft[1],
+          node.val + sumRight[1],
+        );
+        return [maxSum, maxSumWith];
+      }
+
+      /**
+      * Test Case
+      */
+
+      /**
+      * Converts an array to a Node Tree
+      */
+      var listToTree = function(list) {
+        const root = new TreeNode(list[1]);
+        appendChildsRec(root, list, 1);
+        return root;
+      }
+
+      var appendChildsRec = function(node, list, pos) {
+        if (2*pos < list.length) {
+          node.left = new TreeNode(list[2*pos]);
+          appendChildsRec(node.left, list, 2*pos);
+        }
+        if (2*pos + 1 < list.length) {
+          node.right = new TreeNode(list[2*pos + 1]);
+          appendChildsRec(node.right, list, 2*pos + 1);
+        }
+      }
+      testCases = [
+        [1,2,3],
+        [-10,9,20,null,null,15,7],
+        [-3],
+        [1,-2,-3,1,3,-2,null,-1],
+        [5,4,8,11,null,13,4,7,2,null,null,null,1],
+      ];
+      expectedList = [
+        6,
+        42,
+        -3,
+        3,
+        49,
+      ]
+      for (let i = 0; i < testCases.length; i++) {
+        const testCase = testCases[i];
+        const expected = expectedList[i];
+        const root = listToTree([null].concat(testCase));
+        answer = maxPathSum(root);
+        console.log(`TestCase ${i}:`, testCase);
+        console.log(`Solution get for problem ${i}: ${answer}`);
+        console.log(`Solution expected problem ${i}: ${expected}`);
+        console.log(answer === expected ? `%cProblem ${i} solved` : `%cWrong answer`, 'color: #000000');
+      }
+
+    </script>
+  </body>
+</html>
