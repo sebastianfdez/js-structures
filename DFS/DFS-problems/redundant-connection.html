@@ -15,8 +15,6 @@
         findCycleDFS(root, root.value, cycleStack);
         // After getting the nodes involved in the cycle,
         // Find the last edge in the list part of it
-        console.log(cycleStack);
-        console.log(edges);
         for (let i = edges.length - 1; i >= 0; i--) {
           const edge = edges[i];
           if (cycleStack.indexOf(edge[0]) > -1 && cycleStack.indexOf(edge[1]) > -1) {
@@ -70,22 +68,23 @@
         return root;
       }
 
-      /**
-      * Test Case
-      */
       function TreeNode(val) {
         this.value = parseInt(val);
         this.visited = false;
         this.childs = {};
       }
 
+      /**
+      * Test Case
+      */
+
       const testCase1 = [[1,2], [2,3], [3,4], [1,4], [1,5]];
       const expected1 = [1,4];
-      const answer1 = findRedundantConnection(testCase1);
-      console.log('solution get problem 1', answer1);
-      console.log('solution expected problem 1', expected1);
-      console.log(answer1[0] === expected1[0] && answer1[1] === expected1[1] ?
-      'Problem 1 solved' : 'Wrong answer');
+        const answer1 = findRedundantConnection(testCase1);
+        console.log('solution get problem 1', answer1);
+        console.log('solution expected problem 1', expected1);
+        console.log(answer1[0] === expected1[0] && answer1[1] === expected1[1] ?
+        'Problem 1 solved' : 'Wrong answer');
       const testCase2 = [[1,2], [1,3], [3,4], [3,5], [3,6], [5,7], [6,7]];
       const expected2 = [6,7];
       const answer2 = findRedundantConnection(testCase2);

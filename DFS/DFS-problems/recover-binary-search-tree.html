@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      /**
+      * Leetcode problem: https://leetcode.com/problems/recover-binary-search-tree/
+      */
+      function TreeNode(val) {
+        this.val = val;
+        this.left = this.right = null;
+      }
+      /**
+       * @param {TreeNode} root
+       * @return {void} Do not return anything, modify root in-place instead.
+       */
+      var recoverTree = function(root) {
+        last = { node: null };
+        mistakeList = [];
+        findMistakeDFS(root, last, mistakeList);
+        // Switch last from the mistakelist with the first one
+        const valAux = mistakeList[0].val;
+        mistakeList[0].val = mistakeList[mistakeList.length - 1].val;
+        mistakeList[mistakeList.length - 1].val = valAux;
+        return root;
+      };
+
+      var findMistakeDFS = function(node, last, mistakeList) {
+        if (node === null || node.val === null) {
+          return;
+        }
+        findMistakeDFS(node.left, last, mistakeList);
+        if (last.node && last.node.val > node.val) {
+          mistakeList.push(last.node);
+          mistakeList.push(node);
+        }
+        last.node = node;
+        findMistakeDFS(node.right, last, mistakeList);
+      }
+
+      /**
+      * Test Case
+      */
+
+      /**
+      * Converts an array to a Node Tree
+      */
+      var listToTree = function(list) {
+        const root = new TreeNode(list[1]);
+        appendChildsRec(root, list, 1);
+        return root;
+      }
+
+      var appendChildsRec = function(node, list, pos) {
+        if (2*pos < list.length) {
+          node.left = new TreeNode(list[2*pos]);
+          appendChildsRec(node.left, list, 2*pos);
+        }
+        if (2*pos + 1 < list.length) {
+          node.right = new TreeNode(list[2*pos + 1]);
+          appendChildsRec(node.right, list, 2*pos + 1);
+        }
+      }
+
+      const testCase1 = [1,3,null,null,2];
+      const expected1 = [3,1,null,null,2];
+      const root1 = listToTree([null].concat(testCase1));
+      answer1 = recoverTree(root1);
+      console.log('testCase1: ', testCase1);
+      console.log('solution get problem 1', answer1);
+      console.log('solution expected problem 1', expected1);
+      const testCase2 = [3,1,4,null,null,2];
+      const expected2 = [2,1,4,null,null,3];
+      const root2 = listToTree([null].concat(testCase2));
+      answer2 = recoverTree(root2);
+      console.log('testCase1: ', testCase2);
+      console.log('solution get problem 2', answer2);
+      console.log('solution expected problem 2', expected2);
+
+    </script>
+
+  </body>
+</html>
