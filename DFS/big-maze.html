@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <body>
+
+    <script>
+      /**
+       * Definition for a binary tree node.
+       * 
+       */
+      function TreeNode(val) {
+        this.val = val;
+        
+        this.left = this.right = null;
+      }
+      /**
+       * @param {TreeNode} root
+       * @return {number}
+       */
+      var minDiffInBST = function(root) {
+        return minDiffAndLast(root, { val: null });
+      };
+
+      var minDiffAndLast = function(node, last) {
+        console.log({ node, last });
+        if (node === null) {
+          return Infinity;
+        }
+        const leftResult = minDiffAndLast(node.left, last);
+        let minDiff = last.val ? Math.min(leftResult, node.val - last.val) : Infinity;
+        last.val = node.val;
+        const rightResult = minDiffAndLast(node.right, last);
+        minDiff = Math.min(minDiff, last.val !== node.val ? last.val - node.val : Infinity, leftResult);
+        return minDiff;
+      }
+
+      // Test Case
+
+      var appendChildsRec = function(node, list, pos) {
+        if (2*pos < list.length) {
+          node.left = new TreeNode(list[2*pos]);
+          appendChildsRec(node.left, list, 2*pos);
+        }
+        if (2*pos + 1 < list.length) {
+          node.right = new TreeNode(list[2*pos + 1]);
+          appendChildsRec(node.right, list, 2*pos + 1);
+        }
+      }
+
+      var listToTree = function(list) {
+        const root = new TreeNode(list[1]);
+        appendChildsRec(root, list, 1);
+        return root;
+      }
+
+      const testCase = [null, 50, 25, 100, 11, 40, 71, 150, 2, 15, 28, 44, 57, 78, 130];
+      const root = listToTree(testCase);
+      console.log(root);
+      console.log(minDiffInBST(root));
+
+
+    </script>
+
+  </body>
+</html>
