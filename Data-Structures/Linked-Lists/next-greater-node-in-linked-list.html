@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      /**
+      * Leetcode problem: https://leetcode.com/problems/next-greater-node-in-linked-list/submissions/
+      */
+      function ListNode(val) {
+        this.val = val;
+        this.next = null;
+      }
+      /**
+       * @param {ListNode} head
+       * @return {number[]}
+       */
+      var nextLargerNodes = function(head) {
+        let node = head;
+        const unchangedNodes = [];
+        while (node && node.val) {
+          for (let i = unchangedNodes.length - 1; i >= 0; i--) {
+            if (unchangedNodes[i].val < node.val) {
+              unchangedNodes[i].newVal = node.val;
+              n = unchangedNodes.pop();
+            }
+          }
+          node.newVal = 0;
+          unchangedNodes.push(node);
+          node = node.next;
+        }
+        const answer = getAnswer(head);
+        return answer;
+      };
+
+      var getAnswer = function(head) {
+        const answer = [];
+        node = head;
+        while (node) {
+          answer.push(node.newVal);
+          node = node.next;
+        }
+        return answer;
+      }
+
+      /**
+      * Test Case
+      */
+
+      /**
+      * Converts an array to a Node Tree
+      */
+      var listToLinkedList = function(list) {
+        const root = new ListNode(list[0]);
+        let node = root;
+        for (let i = 1; i < list.length; i++) {
+          node.next = new ListNode(list[i]);
+          node = node.next;
+        }
+        return root;
+      }
+
+      /**
+       * Examples 
+       */
+      var compareResults = function(array1, array2) {
+        for (let i = 0; i < array1.length; i++) {
+          if (array1[i] !== array2[i]) {
+            return false;
+          }
+        }
+        return true;
+      }
+      testCases = [
+        [2,1,5],
+        [2,7,4,3,5],
+        [1,7,5,1,9,2,5,1],
+        [],
+        [1],
+        [1,2],
+        [2,1],
+        [9,7,6,7,6,9],
+      ];
+      expectedList = [
+        [5,5,0],
+        [7,0,5,5,0],
+        [7,9,9,9,0,5,0,0],
+        [],
+        [0],
+        [2,0],
+        [0,0],
+        [0,9,7,9,9,0]
+      ]
+      for (let i = 0; i < testCases.length; i++) {
+        const testCase = testCases[i];
+        const expected = expectedList[i];
+        const root = listToLinkedList(testCase);
+        answer = nextLargerNodes(root);
+        console.log(`TestCase ${i}:`, testCase);
+        console.log(`Solution get for problem ${i}:`, answer);
+        console.log(`Solution expected problem ${i}:`, expected);
+        console.log(compareResults(answer, expected) ? `%cProblem ${i} solved` : `%cWrong answer`, 'color: #000000');
+      }
+
+    </script>
+  </body>
+</html>
