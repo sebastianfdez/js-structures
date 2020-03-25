@@ -24,3 +24,4 @@ JS implementation.
 ## Linked lists
 1 Leetcode problem solved
 - **Next greater node in linked list** (solved): For every node in a linked list, return the next node higher
+- **Linked list inside binary tree** (solved): Given a binary tree (not necessary balanced nor sorted), find if there is a path from up to down that matches a given linked list.
