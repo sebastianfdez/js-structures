@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      /**
+      * Leetcode problem: https://leetcode.com/problems/valid-parentheses/
+      */
+      /**
+      * @param {string} s
+      * @return {boolean}
+      */
+      var isValid = function(s) {
+        stack = [];
+        for (let i = 0; i < s.length; i++) {
+          if (s[i] === '(' || s[i] === '{' || s[i] === '[') {
+            stack.push(s[i]);
+          } else {
+            last = stack.pop();
+            if (!match(s[i], last)) {
+              return false;
+            }
+          }
+        }
+        return stack.length ? false : true;
+      };
+
+      var match = function(close_, open_) {
+        switch (close_) {
+          case ')':
+            return open_ === '('; 
+          case '}':
+            return open_ === '{'; 
+          case ']':
+            return open_ === '[';
+          default:
+            return false;
+        }
+      }
+
+      /**
+      * Test Cases
+      */
+      testCases = [
+        "(()",
+        "{[]}()",
+        "([)]",
+        "",
+        "()",
+        "((",
+        "))",
+      ];
+      expectedList = [
+        false,
+        true,
+        false,
+        true,
+        true,
+        false,
+        false,
+      ]
+      for (let i = 0; i < testCases.length; i++) {
+        const testCase = testCases[i];
+        const expected = expectedList[i];
+        answer = isValid(testCase);
+        console.log(`TestCase ${i}:`, testCase);
+        console.log(`Solution get for problem ${i}:`, answer);
+        console.log(`Solution expected problem ${i}:`, expected);
+        console.log(answer === expected ? `%cProblem ${i} solved` : `%cWrong answer`, 'color: #000000');
+      }
+
+    </script>
+  </body>
+</html>
