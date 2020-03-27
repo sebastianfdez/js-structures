@@ -29,6 +29,7 @@ JS implementation.
 
 # Concepts
 ## Dynamic Programming
-1 Leetcode problem solved
+2 Leetcode problem solved
 ### Problems
 - **Cherry pickup** (solved): Take the higher quantity of cherys traveling go and back in a grid.
+- **Longest valid Parentheses** (solved): Find the biggest consecutive set of valid parentheses.
