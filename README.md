@@ -22,10 +22,14 @@ JS implementation.
 
 # Data structures
 ## Linked lists
-2 Leetcode problem solved
+2 Leetcode problems solved
 ### Problems
 - **Next greater node in linked list** (solved): For every node in a linked list, return the next node higher
 - **Linked list inside binary tree** (solved): Given a binary tree (not necessary balanced nor sorted), find if there is a path from up to down that matches a given linked list.
+
+## Stacks and Queues
+1 Leetcode problem solved
+- **Valid Parentheses** (solved): Find if a string like "({[]})" has a valid open close list of parentheses.
 
 # Concepts
 ## Dynamic Programming
