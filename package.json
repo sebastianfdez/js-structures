@@ -1,0 +1,30 @@
+{
+  "name": "js-problems",
+  "version": "1.0.0",
+  "description": "Solving JS problems",
+  "main": "index.js",
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sebastianfdez/js-problems.git"
+  },
+  "keywords": [
+    "js"
+  ],
+  "author": "Sebastian",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sebastianfdez/js-problems/issues"
+  },
+  "homepage": "https://github.com/sebastianfdez/js-problems#readme",
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "chai": "^4.2.0",
+    "expect.js": "^0.3.1",
+    "mocha": "^2.3.3"
+  },
+  "type": "module"
+}
