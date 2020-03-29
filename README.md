@@ -2,6 +2,19 @@
 
 Structures and solutions for JS algorithm problems
 
+Using NPM and JS
+Testing with mocha
+
+```bash
+npm install
+```
+
+To run tests
+```bash
+npm test
+```
+
+
 # Algoritms
 ## BFS
 JS implementation
