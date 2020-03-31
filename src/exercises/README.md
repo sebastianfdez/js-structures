@@ -1,4 +1,4 @@
-![JavaScript structures](assets/logo.png)
+![JavaScript structures](../../assets/logo.png)
 
 Structures and solutions for JS algorithm problems
 
@@ -9,5 +9,8 @@ Structures and solutions for JS algorithm problems
 Solve data structure problems from the book. 
 
 ```bash
-npm run test
+npm install
+```
+```bash
+npm test
 ```
