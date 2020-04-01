@@ -50,3 +50,9 @@ JS implementation.
 ### Problems
 - **Cherry pickup** (solved): Take the higher quantity of cherys traveling go and back in a grid.
 - **Longest valid Parentheses** (solved): Find the biggest consecutive set of valid parentheses.
+
+## Bit manipulation
+2 Leetcode problem solved
+### Problems
+- **Majority number** (solved): Get the number that is majority in a list.
+- **Single number** (solved): Get the number that is unique in a list.

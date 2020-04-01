@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      // Leetcode problem: https://leetcode.com/problems/majority-element/
+
+      /**
+       * Check using maximum bit in each position:
+       * 5: 0101
+       * 5: 0101
+       * 3: 0011
+       * 5: 0101
+       * 2: 0010
+       * 3: 0011
+       * 5: 0101
+       * 
+       * -> 0101 (5)
+       * 
+       * @param {number[]} nums List of numbers to check
+       * @return {number} Return the number that is the majority in the list
+       */
+      var majorityElement = function(nums) {
+        const maxbit = Math.min(...nums) > 0 ? Math.floor(Math.log2(Math.max(...nums))) : 31;
+        let result = 0;
+        let sum = 0;
+        for (let i = 0; i <= maxbit; i++) {
+          sum = 0;
+          for (let j = 0; j < nums.length; j++) {
+            sum += (nums[j] & 1<<i) !== 0 ? 1 : 0;
+          }
+          if (sum > (Math.floor(nums.length/2))) {
+            result += 1<<i;
+          }
+        }
+        return result;
+      };
+
+      
+
+      /**
+      * Test Cases
+      */
+      var testCases = [
+        { args: [2,2,1], expected: 2 },
+        { args: [35,31,31], expected: 31 },
+        { args: [167,198,198,43,198,70,198,33,198,199,199,199,198,198], expected: 198 },
+        { args: [2], expected: 2 },
+        { args: [0], expected: 0 },
+        { args: [-2147483648], expected: -2147483648 },
+        { args: [-500,-500,0], expected: -500 }
+      ];
+      for (let i = 0; i < testCases.length; i++) {
+        const testCase = testCases[i];
+        answer = majorityElement(testCase.args);
+        console.log(`TestCase ${i}:`, testCase.args);
+        console.log(`Solution get for problem ${i}:`, answer);
+        console.log(`Solution expected problem ${i}:`, testCase.expected);
+        console.log(answer === testCase.expected ? `%cProblem ${i} solved` : `%cWrong answer`, 'color: #000000');
+      }
+
+    </script>
+  </body>
+</html>
