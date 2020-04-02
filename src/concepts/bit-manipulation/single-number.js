@@ -10,6 +10,9 @@
  * 
  * -> 0110
  * 
+ * Time: O(N)
+ * Additional space: O(1)
+ * 
  * @param {number[]} nums List of numbers to check
  * @return {number} Return the number that is alone in the list
  */

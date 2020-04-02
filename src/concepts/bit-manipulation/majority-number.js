@@ -12,10 +12,16 @@
  * 
  * -> 0101 (5)
  * 
+ * Time: O(32*N) = O(N)
+ * Additional space: O(1)
+ * 
  * @param {number[]} nums List of numbers to check
  * @return {number} Return the number that is the majority in the list
  */
 export var majorityElement = function(nums) {
+  // If there is a negative,
+  // it will be necessary to check the 32 positions,
+  // otherwise, just until the biggest bit position.
   const maxbit = Math.min(...nums) > 0 ? Math.floor(Math.log2(Math.max(...nums))) : 31;
   let result = 0;
   let sum = 0;
