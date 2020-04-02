@@ -2,8 +2,12 @@
 * Leetcode problem: https://leetcode.com/problems/longest-valid-parentheses/
 */
 /**
+ *
+ * Time: O(N)
+ * Additional space: O(N)
+ *
  * @param {string} s  String to evaluate
- * @return {number}   Number of maximum valid paretheses
+ * @return {number}   Number of maximum valid parentheses
 */
 export var longestValidParentheses = function(s) {
   if (!s.length) {
