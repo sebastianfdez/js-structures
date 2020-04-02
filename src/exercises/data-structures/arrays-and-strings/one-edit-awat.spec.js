@@ -1,7 +1,7 @@
 import expect from 'expect.js';
 import { oneEditAway } from './one-edit-awat';
 
-describe('Exercises: One string edition away', function() {
+describe('Exercises (Arrays & Strings): One string edition away', function() {
   let testCases = [
     ['pale', 'ple'],
     ['pales', 'pale'],

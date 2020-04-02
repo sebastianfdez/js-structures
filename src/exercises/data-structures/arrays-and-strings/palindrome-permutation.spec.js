@@ -1,7 +1,7 @@
 import expect from 'expect.js';
 import { palindromePermutation, palindromePermutation2 } from './palindrome-permutation';
 
-describe('Exercises: Palindrome permutation', function() {
+describe('Exercises (Arrays & Strings): Palindrome permutation', function() {
   let testCases = [
     ' ',
     '   ',

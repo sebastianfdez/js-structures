@@ -1,6 +1,6 @@
 import { assert } from 'chai';
 import expect from 'expect.js';
-import { ListNode, listToLinkedList } from '../../shared/list-node';
+import { ListNode, listToLinkedListNode } from '../../shared/single-linked-list';
 import { TreeNode, listToTree } from '../../shared/tree-node';
 import { isSubPath } from './linked-list-in-binary-tree';
 import { nextLargerNodes } from './next-greater-node-in-linked-list';
@@ -10,7 +10,7 @@ describe("Data Structures: Linked List", function() {
     var list = new ListNode();
     var tree = new TreeNode();
     function isListInBinaryTree(head, root) {
-      list = listToLinkedList(head);
+      list = listToLinkedListNode(head);
       tree = listToTree([null].concat(root));
       return isSubPath(list, tree);
     }
@@ -40,7 +40,7 @@ describe("Data Structures: Linked List", function() {
   describe("2) Problem: Next greater node in linked list", function() {
 
     function nextGreaterNode(head) {
-      const root = listToLinkedList(head);
+      const root = listToLinkedListNode(head);
       return nextLargerNodes(root);
     }
     var testCases = [

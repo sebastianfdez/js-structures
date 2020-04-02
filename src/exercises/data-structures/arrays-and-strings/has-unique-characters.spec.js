@@ -1,7 +1,7 @@
 import expect from 'expect.js';
 import { hasUniqueCharactersSet, hasUniqueCharactersSet2 } from './has-unique-characters';
 
-describe('Exercises: has unique characters', function() {
+describe('Exercises (Arrays & Strings): has unique characters', function() {
   let testCases = [
     'abcdefghi',
     'jklpoiuqwerzxcvmnsadf',

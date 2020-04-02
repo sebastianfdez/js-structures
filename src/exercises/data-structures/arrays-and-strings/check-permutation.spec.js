@@ -1,7 +1,7 @@
 import expect from 'expect.js';
 import { checkPermutation, checkPermutation2 } from './check-permutation';
 
-describe('Exercises: check string permutation', function() {
+describe('Exercises (Arrays & Strings): check string permutation', function() {
   const testCases = [
     ['abcdefghi', 'ihgfedcba'],
     ['1a1', 'a11'],
