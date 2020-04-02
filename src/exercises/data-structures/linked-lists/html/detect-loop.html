@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <script>
+      /**
+       *
+       * Time: O(N)
+       * Additional space: O(1)
+       *
+       * @param  {LinkedList} linkedList  Linked list to be checked 
+       * @return {ListNode}               Return the node that creates the loop
+       */
+      function detectLoop(linkedList) {
+        const valueRef = new Map();
+        for (let current = linkedList.head; current; current = current.next) {
+          if (current.val === 2) {
+            console.log('stop');
+          }
+          if (valueRef.has(current.val)) {
+            for (let i = 0; i < valueRef.get(current.val).length; i++) {
+              if (current === valueRef.get(current.val)[i]) {
+                return current;
+              }
+            }
+            valueRef.get(current.val).push(current);
+          } else {
+            valueRef.set(current.val, [current]);
+          }
+        }
+        return null;
+      }
+
+      /**
+       * Helpers
+      */
+
+      var listToLinkedList = function(list) {
+        const linkedList = new LinkedList();
+        if (!list || list.length === 0) {
+          return linkedList;
+        }
+        linkedList.head = new ListNode(list[0]);
+        let node = linkedList.head;
+        for (let i = 1; i < list.length; i++) {
+          node.next = new ListNode(list[i]);
+          linkedList.last = node.next;
+          node = node.next;
+        }
+        linkedList.size = list.length;
+        return linkedList;
+      }
+
+      class ListNode {
+        constructor(val) {
+          this.val = val;
+          this.next = null;
+        }
+      }
+
+      class LinkedList {
+        constructor() {
+          /**
+          * @type {ListNode} head Head of the linked list.
+          * @type {number} size Head of the linked list.
+          */
+          this.head = null; // first/head/root element
+          this.last = null; // first/head/root element
+          this.size = 0; // total number of elements in the list
+        }
+        get(index = 0) {
+          if (this.size === 0 || index > this.size) {
+            return null;
+          }
+          if (index === 0) {
+            return this.head;
+          }
+          for (let current = this.head, i = 0; current;  i++, current = current.next) {
+            if (i === index) {
+              return current;
+            }
+          }
+        }
+      }
+      /**
+      * Test Cases
+      */
+      testCases = [
+        [1,2,3,4,5],
+      ];
+      for (let i = 0; i < testCases.length; i++) {
+        const linkedList = listToLinkedList(testCases[i]);
+        const node = linkedList.get(1);
+        linkedList.last.next = node;
+        console.log(detectLoop(linkedList));
+      }
+
+    </script>
+  </body>
+</html>

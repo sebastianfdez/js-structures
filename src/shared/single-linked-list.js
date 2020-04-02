@@ -15,6 +15,7 @@ export class LinkedList {
     * @type {number} size Head of the linked list.
     */
     this.head = null; // first/head/root element
+    this.last = null; // first/head/root element
     this.size = 0; // total number of elements in the list
   }
   addLast(value) { // similar Array.push O(N)
@@ -28,6 +29,7 @@ export class LinkedList {
     } else {
       this.head = node;
     }
+    this.last = node;
     return this;
   }
   removeLast() { // Similar to Array.pop() O(N)
@@ -39,6 +41,7 @@ export class LinkedList {
       }
       target = current.next;
       current.next = null;
+      this.last = current;
     } else {
       this.head = null;
       target = current;
@@ -92,6 +95,26 @@ export class LinkedList {
     }
     return this;
   }
+
+  /**
+  * Get node in certain position.
+  * Runtime: O(N)
+  * @param {number} position  Position of the node to delete
+  * @return {ListNode}        ListNode that represent the head
+  */
+  get(index = 0) {
+    if (this.size === 0 || index > this.size) {
+      return null;
+    }
+    if (index === 0) {
+      return this.head;
+    }
+    for (let current = this.head, i = 0; current;  i++, current = current.next) {
+      if (i === index) {
+        return current;
+      }
+    }
+  }
 }
 
 /**
@@ -125,6 +148,7 @@ export var listToLinkedList = function(list) {
   let node = linkedList.head;
   for (let i = 1; i < list.length; i++) {
     node.next = new ListNode(list[i]);
+    linkedList.last = node.next;
     node = node.next;
   }
   linkedList.size = list.length;
