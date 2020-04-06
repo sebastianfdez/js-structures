@@ -2,6 +2,7 @@ import expect from 'expect.js';
 import { TripleStack } from './triple-stack';
 import { StackWithMin } from './min-stack';
 import { DogCatQueue } from './dog-cat-queue';
+import { sortStack } from './sort-stack';
 
 describe('Exercises (Stacks & Queues): triple stack', function() {
   const tripleStack = new TripleStack();
@@ -83,4 +84,17 @@ describe('Exercises (Stack & Queues): dog and cat queue', function() {
       expect(dogCatQueue3.dequeueDog().value).to.be(`Puppy${3*i+2}`);
     }
   });
+})
+
+describe('Exercises (Stack & Queues): sort a stack', function() {
+  const testCases = [];
+  for (let i = 0; i < 20; i++) {
+    testCases.push(Array.from({length: 40}, () => Math.floor(Math.random() * 40)));
+  }
+  it (`Check if function sort a stack correctly: (${testCases.length} tests)`, function() {
+    testCases.forEach((args) => {
+      let expected = args.slice(0).sort((a, b) => a < b ? 1 : a > b ? -1 : 0);
+      expect(sortStack(args)).to.eql(expected);
+    });
+  })
 })
