@@ -158,12 +158,28 @@ export var listToLinkedList = function(list) {
 /**
  * Converts Linked List to array
  * 
- * @param {LinkedList} linkedList  ListNode that represent the head
+ * @param {LinkedList} linkedList  LinkedList that contains the head
  * @return {number[]}              List of numbers
 */
 export var linkedListtoList = function(linkedList) {
   const list = [];
   let node = linkedList.head;
+  while (node && node.val) {
+    list.push(node.val);
+    node = node.next;
+  }
+  return list.length ? list : null;
+}
+
+/**
+ * Converts Linked List (node) to array
+ * 
+ * @param {ListNode} listNode  ListNode that represent the head
+ * @return {number[]}            List of numbers
+*/
+export var nodeListtoList = function(listNode) {
+  const list = [];
+  let node = listNode;
   while (node && node.val) {
     list.push(node.val);
     node = node.next;
