@@ -14,6 +14,13 @@ To run tests
 npm test
 ```
 
+# JS data dtructures implementations
+- `Single Linked List` - Single linked list implementation and most used functions [[linkedlist](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/single-linked-list.js)]
+- `Double Linked List` - Double linked list implementation [[doublelinkedlist](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/tree-node.js)]
+- `Queue` - Queue implementation using Double linked list [[queue](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/queue.js)]
+- `Stack` - Custom JS Stack implementation [[stack](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/stack.js)]
+- `Tree Node` - JS Tree node implementation [[treenode](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/tree-node.js)]
+
 
 # Algoritms
 ## BFS
@@ -35,12 +42,14 @@ JS implementation.
 
 # Data structures
 ## Linked lists
+JS implementation
 2 Leetcode problems solved
 ### Problems
 - **Next greater node in linked list** (solved): For every node in a linked list, return the next node higher
 - **Linked list inside binary tree** (solved): Given a binary tree (not necessary balanced nor sorted), find if there is a path from up to down that matches a given linked list.
 
 ## Stacks and Queues
+JS implementation
 1 Leetcode problem solved
 - **Valid Parentheses** (solved): Find if a string like "({[]})" has a valid open close list of parentheses.
 
