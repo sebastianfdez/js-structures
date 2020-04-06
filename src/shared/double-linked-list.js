@@ -6,13 +6,18 @@ export class ListNode {
   }
 }
 
-export class LinkedList {
+export class DoubleLinkedList {
   constructor() {
     this.first = null; // head/root element
     this.last = null; // last element of the list
     this.size = 0; // total number of elements in the list
   }
 
+  /**
+   * Add a value in the head of the Linked List
+   * @param {object} value Value to add in the head
+   * @returns {ListNode}     Reference to the added node
+   */
   addFirst(value) {
     const node = new ListNode(value);
     node.next = this.first;
@@ -25,21 +30,28 @@ export class LinkedList {
     this.size++;
     return node;
   }
-
+  /**
+   * Remove head of the Linked List
+   * @returns {ListNode}     Reference to the removed node
+   */
   removeFirst() {
     const first = this.first;
-    if(first) {
+    if (first) {
       this.first = first.next;
       if(this.first) {
         this.first.previous = null;
       }
       this.size--;
-      return first.value;
-    } else {
-      this.last = null;
+      return first;
     }
+    this.last = null;
+    return null;
   }
-
+  /**
+   * Add a value in the end of the Linked List
+   * @param {object} value Value to add at the end
+   * @returns {ListNode}     Reference to the added node
+   */
   addLast(value) {
     const last = new ListNode(value);
     if (this.last) {
@@ -53,7 +65,10 @@ export class LinkedList {
     this.size++;
     return this.last;
   }
-
+  /**
+   * Remove last node of the Linked List
+   * @returns {ListNode}  Reference to the removed node
+   */
   removeLast() {
     if (this.size === 0) {
       return null;
@@ -70,7 +85,11 @@ export class LinkedList {
     return this.last;
   }
 
-  // Adding an element anywhere from a linked list
+  /**
+   * Add element anywhere in the linked List. O(N)
+   * @param {object} value Value to add
+   * @param {ListNode} index Position to add
+   */
   add(value, index = 0) {
     const node = new ListNode(value);
     if (index === 0) {
@@ -85,6 +104,7 @@ export class LinkedList {
         node.previous.next = node;
         node.next = current;
         current.previous = node;
+        this.size++;
         return node;
       }
     }
@@ -94,6 +114,5 @@ export class LinkedList {
       // return Error
       return this.addLast(value);
     }
-    this.size++;
   }
 }

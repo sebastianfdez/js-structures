@@ -2,12 +2,15 @@
 /**
 * Leetcode problem: https://leetcode.com/problems/valid-parentheses/
 */
+
+import { Stack } from "../../shared/stack";
+
 /**
 * @param {string} s
 * @return {boolean}
 */
 export var isValid = function(s) {
-  const stack = [];
+  const stack = new Stack();
   for (let i = 0; i < s.length; i++) {
     if (s[i] === '(' || s[i] === '{' || s[i] === '[') {
       stack.push(s[i]);
@@ -18,7 +21,7 @@ export var isValid = function(s) {
       }
     }
   }
-  return stack.length ? false : true;
+  return stack.length > 0 ? false : true;
 };
 
 var match = function(close_, open_) {
