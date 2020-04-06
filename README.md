@@ -16,7 +16,7 @@ npm test
 
 # JS data dtructures implementations
 - `Single Linked List` - Single linked list implementation and most used functions [[linkedlist](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/single-linked-list.js)]
-- `Double Linked List` - Double linked list implementation [[doublelinkedlist](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/tree-node.js)]
+- `Double Linked List` - Double linked list implementation [[doublelinkedlist](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/double-linked-list.js)]
 - `Queue` - Queue implementation using Double linked list [[queue](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/queue.js)]
 - `Stack` - Custom JS Stack implementation [[stack](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/stack.js)]
 - `Tree Node` - JS Tree node implementation [[treenode](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/tree-node.js)]
