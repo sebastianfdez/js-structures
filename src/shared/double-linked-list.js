@@ -1,14 +1,19 @@
-export class ListNode {
+export class DoubleListNode {
   constructor(value) {
+    /** @type {object} value of the node */
     this.value = value;
+    /** @type {DoubleListNode} next node of the list */
     this.next = null;
+    /** @type {DoubleListNode} previous node of the list */
     this.previous = null;
   }
 }
 
 export class DoubleLinkedList {
   constructor() {
+    /** @type {DoubleListNode} first node */
     this.first = null; // head/root element
+    /** @type {DoubleListNode} last node */
     this.last = null; // last element of the list
     this.size = 0; // total number of elements in the list
   }
@@ -16,10 +21,10 @@ export class DoubleLinkedList {
   /**
    * Add a value in the head of the Linked List
    * @param {object} value Value to add in the head
-   * @returns {ListNode}     Reference to the added node
+   * @returns {DoubleListNode}     Reference to the added node
    */
   addFirst(value) {
-    const node = new ListNode(value);
+    const node = new DoubleListNode(value);
     node.next = this.first;
     if (this.first) {
       this.first.previous = node;
@@ -32,7 +37,7 @@ export class DoubleLinkedList {
   }
   /**
    * Remove head of the Linked List
-   * @returns {ListNode}     Reference to the removed node
+   * @returns {DoubleListNode}     Reference to the removed node
    */
   removeFirst() {
     const first = this.first;
@@ -50,10 +55,10 @@ export class DoubleLinkedList {
   /**
    * Add a value in the end of the Linked List
    * @param {object} value Value to add at the end
-   * @returns {ListNode}     Reference to the added node
+   * @returns {DoubleListNode}     Reference to the added node
    */
   addLast(value) {
-    const last = new ListNode(value);
+    const last = new DoubleListNode(value);
     if (this.last) {
       this.last.next = last;
       last.previous = this.last;
@@ -67,31 +72,33 @@ export class DoubleLinkedList {
   }
   /**
    * Remove last node of the Linked List
-   * @returns {ListNode}  Reference to the removed node
+   * @returns {DoubleListNode}  Reference to the removed node
    */
   removeLast() {
     if (this.size === 0) {
       return null;
     }
     if (this.size === 1) {
+      const last = this.last
       this.first = null;
       this.last = null;
       this.size--;
-      return null;
+      return last;
     }
+    const last = this.last;
     this.last = this.last.previous;
     this.last.next = null;
     this.size--;
-    return this.last;
+    return last;
   }
 
   /**
    * Add element anywhere in the linked List. O(N)
    * @param {object} value Value to add
-   * @param {ListNode} index Position to add
+   * @param {DoubleListNode} index Position to add
    */
   add(value, index = 0) {
-    const node = new ListNode(value);
+    const node = new DoubleListNode(value);
     if (index === 0) {
       return this.addFirst(value);
     }
