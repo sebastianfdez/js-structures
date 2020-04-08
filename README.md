@@ -20,6 +20,7 @@ npm test
 - `Queue` - Queue implementation using Double linked list [[queue](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/queue.js)]
 - `Stack` - Custom JS Stack implementation [[stack](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/stack.js)]
 - `Tree Node` - JS Tree node implementation [[treenode](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/tree-node.js)]
+- `Graph` - JS Graph implementation [[graph](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/graph.js)]
 
 
 # Algoritms
