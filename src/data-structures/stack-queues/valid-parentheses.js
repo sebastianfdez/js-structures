@@ -3,7 +3,7 @@
 * Leetcode problem: https://leetcode.com/problems/valid-parentheses/
 */
 
-import { Stack } from "../../shared/stack";
+import { Stack } from "../../shared/classes/stack";
 
 /**
 * @param {string} s

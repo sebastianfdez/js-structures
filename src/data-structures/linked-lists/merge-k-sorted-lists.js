@@ -1,4 +1,4 @@
-import { ListNode } from "../../shared/single-linked-list";
+import { ListNode } from "../../shared/classes/single-linked-list";
 
 /**
  * Leetcode problem: https://leetcode.com/problems/merge-k-sorted-lists/submissions/

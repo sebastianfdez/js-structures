@@ -1,4 +1,4 @@
-import { Stack } from "../../../shared/stack";
+import { Stack } from "../../../shared/classes/stack";
 
 export class StackWithMin extends Stack {
   constructor() {

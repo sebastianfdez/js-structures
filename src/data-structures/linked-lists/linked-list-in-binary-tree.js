@@ -1,7 +1,7 @@
 'use strict';
 
-import { BinaryTreeNode } from "../../shared/binary-tree";
-import { ListNode } from "../../shared/single-linked-list";
+import { BinaryTreeNode } from "../../shared/classes/binary-tree";
+import { ListNode } from "../../shared/classes/single-linked-list";
 
 /**
   * Leetcode problem: https://leetcode.com/problems/linked-list-in-binary-tree/submissions/

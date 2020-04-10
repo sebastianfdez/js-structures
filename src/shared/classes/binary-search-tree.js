@@ -43,10 +43,26 @@ export class BinarySearchTree extends BinaryTree {
    * @param {BinaryTreeNode} node 
    * @returns {number}
    */
-  getHeight(node) {
+  getHeight(node = this.root) {
     if (!node) {
       return 0;
     }
     return 1 + Math.max(this.getHeight(node.left), this.getHeight(node.right));
+  }
+
+  isBalanced(node = this.root) {
+    if (!node) {
+      return true;
+    }
+    if (!this.isBalanced(node.left)) {
+      return false;
+    }
+    if (!this.isBalanced(node.right)) {
+      return false;
+    }
+    if (Math.abs(this.getHeight(node.left) - this.getHeight(node.right) > 1)) {
+      return false;
+    }
+    return true;
   }
 }

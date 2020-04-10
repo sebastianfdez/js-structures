@@ -1,5 +1,5 @@
-import { GraphNode, Graph } from "../../../shared/graph";
-import { Queue } from "../../../shared/queue";
+import { GraphNode, Graph } from "../../../shared/classes/graph";
+import { Queue } from "../../../shared/classes/queue";
 
 /**
  * Return true if node a and b are connected in a provided graph. BFS

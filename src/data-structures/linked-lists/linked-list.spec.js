@@ -1,9 +1,9 @@
 import { assert } from 'chai';
 import expect from 'expect.js';
-import { ListNode, listToLinkedListNode } from '../../shared/single-linked-list';
+import { ListNode, listToLinkedListNode } from '../../shared/classes/single-linked-list';
 import { isSubPath } from './linked-list-in-binary-tree';
 import { nextLargerNodes } from './next-greater-node-in-linked-list';
-import { listToTree, BinaryTree } from '../../shared/binary-tree';
+import { listToTree, BinaryTree } from '../../shared/classes/binary-tree';
 
 describe("Data Structures: Linked List", function() {
   describe("1) Problem: Linked List in Binary Tree", function() {

@@ -1,5 +1,5 @@
 import expect from 'expect.js';
-import { listToLinkedList } from '../../../shared/single-linked-list';
+import { listToLinkedList } from '../../../shared/classes/single-linked-list';
 import { detectLoop } from './detect-loop';
 
 describe('Exercises (Linked List): find node that creates a loop', function() {

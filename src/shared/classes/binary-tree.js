@@ -33,15 +33,26 @@ export class BinaryTree {
     console.log(`${prefix}(${node.value})`);
     this.printTree(node.left, prefix + '----');
   }
+
+  isSearchTree(node = this.root) {
+    if (!node) {
+      return true;
+    }
+    if ((node.left && node.value < node.left.value) ||
+      (node.right && node.value > node.right.value)) {
+        return false;
+    }
+    return this.isSearchTree(node.left) && this.isSearchTree(node.right);
+  }
 }
 
 /**
  * Converts array to Tree Node
  * 
  * @param {Array} list
- * @return {BinaryTree}
+ * @return {BinaryTree} binary tree
 */
-export var listToTree = function(list) {
+export function listToTree(list) {
   const root = new BinaryTreeNode(list[1]);
   const tree = new BinaryTree();
   appendChildsRec(root, list, 1);

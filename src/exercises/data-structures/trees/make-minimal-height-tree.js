@@ -1,4 +1,4 @@
-import { BinarySearchTree } from "../../../shared/binary-search-tree";
+import { BinarySearchTree } from "../../../shared/classes/binary-search-tree";
 
 /**
  * Make a binary search tree from a sorted list of number.
