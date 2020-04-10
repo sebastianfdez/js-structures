@@ -1,18 +1,18 @@
 import { assert } from 'chai';
 import expect from 'expect.js';
 import { ListNode, listToLinkedListNode } from '../../shared/single-linked-list';
-import { TreeNode, listToTree } from '../../shared/tree-node';
 import { isSubPath } from './linked-list-in-binary-tree';
 import { nextLargerNodes } from './next-greater-node-in-linked-list';
+import { listToTree, BinaryTree } from '../../shared/binary-tree';
 
 describe("Data Structures: Linked List", function() {
   describe("1) Problem: Linked List in Binary Tree", function() {
     var list = new ListNode();
-    var tree = new TreeNode();
+    var tree = new BinaryTree();
     function isListInBinaryTree(head, root) {
       list = listToLinkedListNode(head);
       tree = listToTree([null].concat(root));
-      return isSubPath(list, tree);
+      return isSubPath(list, tree.root);
     }
     var tests = [
       { args: {
@@ -66,7 +66,6 @@ describe("Data Structures: Linked List", function() {
   
     it(`Get next greater node in a linked list. ${testCases.length} tests`, function() {
       testCases.forEach((test, i) => {
-        let res = nextGreaterNode(test);
         expect(nextGreaterNode(test)).to.eql(expectedList[i]);
       });
     });
