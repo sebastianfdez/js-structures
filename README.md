@@ -15,13 +15,17 @@ npm test
 ```
 
 # JS data dtructures implementations
-- `Single Linked List` - Single linked list implementation and most used functions [[linkedlist](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/single-linked-list.js)]
-- `Double Linked List` - Double linked list implementation [[doublelinkedlist](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/double-linked-list.js)]
-- `Queue` - Queue implementation using Double linked list [[queue](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/queue.js)]
-- `Stack` - Custom JS Stack implementation [[stack](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/stack.js)]
-- `Tree Node` - JS Tree node implementation [[treenode](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/tree-node.js)]
-- `Graph` - JS Graph implementation [[graph](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/graph.js)]
+- `Single Linked List` - Single linked list implementation and most used functions [[linkedlist](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/classes/single-linked-list.js)]
+- `Double Linked List` - Double linked list implementation [[doublelinkedlist](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/classes/double-linked-list.js)]
+- `Queue` - Queue implementation using Double linked list [[queue](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/classes/queue.js)]
+- `Stack` - Custom JS Stack implementation [[stack](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/classes/stack.js)]
+- `Graph` - JS Graph implementation [[graph](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/classes/graph.js)]
+- `Binary Tree` - JS Binary tree implementation using tree nodes [[binarytree](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/classes/binary-tree.js)]
+- `Binary Search Tree` - JS Binary search tree (inheritance) [[binarytree](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/classes/binary-search-tree.js)]
+- `Min Heap` - JS min heap, using value array [[minheap](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/classes/min-heap.js)]
 
+# JS helpers
+- `Autogenerate a balanced binary search tree` - For a given initial value, autogenerate a balanced binary search tree. [[autogenerate](https://github.com/sebastianfdez/js-problems/blob/master/src/shared/functions/generate-auto-tree.js)]
 
 # Algoritms
 ## BFS

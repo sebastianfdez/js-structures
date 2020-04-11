@@ -1,6 +1,6 @@
 import expect from 'expect.js';
 import { isPalindrome } from './is-palindrome';
-import { listToLinkedList } from '../../../shared/single-linked-list';
+import { listToLinkedList } from '../../../shared/classes/single-linked-list';
 
 describe('Exercises (Linked List): delete node in position i', function() {
   const testCases = [

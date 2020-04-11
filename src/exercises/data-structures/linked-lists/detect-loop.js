@@ -1,5 +1,5 @@
 'use strict';
-import { LinkedList, ListNode } from "../../../shared/single-linked-list";
+import { LinkedList, ListNode } from "../../../shared/classes/single-linked-list";
 
 /**
  *

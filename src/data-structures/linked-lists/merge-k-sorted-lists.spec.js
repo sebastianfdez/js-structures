@@ -1,6 +1,6 @@
 import expect from 'expect.js';
 import { mergeKLists } from './merge-k-sorted-lists';
-import { listToLinkedList, nodeListtoList } from '../../shared/single-linked-list';
+import { listToLinkedList, nodeListtoList } from '../../shared/classes/single-linked-list';
 
 describe('Data Structures: Linked List', function() {
   describe(`3) Problem: Merge k sorted list.`, function() {

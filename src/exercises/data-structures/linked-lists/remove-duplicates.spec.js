@@ -1,6 +1,6 @@
 import expect from 'expect.js';
 import { removeDuplicates } from './remove-duplicates';
-import { listToLinkedList, linkedListtoList } from '../../../shared/single-linked-list';
+import { listToLinkedList, linkedListtoList } from '../../../shared/classes/single-linked-list';
 
 describe('Exercises (Linked List): delete duplicates', function() {
   const testCases = [

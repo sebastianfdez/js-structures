@@ -164,7 +164,7 @@ export var listToLinkedList = function(list) {
 export var linkedListtoList = function(linkedList) {
   const list = [];
   let node = linkedList.head;
-  while (node && node.val) {
+  while (node && node.val !== undefined) {
     list.push(node.val);
     node = node.next;
   }

@@ -1,5 +1,5 @@
 import { assert } from 'chai';
-import { makeGraph } from '../../../shared/graph';
+import { makeGraph } from '../../../shared/classes/graph';
 import { connectedNodes } from './connected-nodes';
 
 describe("Exercises: (Graphs) connected nodes", function() {
@@ -12,8 +12,8 @@ describe("Exercises: (Graphs) connected nodes", function() {
     'f': ['e'],
     'g': ['a', 'i'],
     'h': ['b', 'c'],
-    'i': ['i', 'e'],
-  }
+    'i': ['i', 'e']
+  };
   const graph = makeGraph(graphData);
   const testCases = [
     { init: 'a', finish: 'b', expected: true },
