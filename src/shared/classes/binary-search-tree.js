@@ -76,6 +76,7 @@ export class BinarySearchTree extends BinaryTree {
    * Search a node in a tree for a given value
    * @param {number} value 
    * @param {BinaryTreeNode} node 
+   * @return {BinaryTreeNode}
    */
   get(value, node = this.root) {
     if (node.value === value) {
@@ -97,6 +98,18 @@ export class BinarySearchTree extends BinaryTree {
     let temp = this.root;
     while (temp.left) {
       temp = temp.left;
+    }
+    return temp;
+  }
+
+  /**
+   * Get the minimum node in the tree
+   * @return {BinaryTreeNode} min
+   */
+  getMax() {
+    let temp = this.root;
+    while (temp.right) {
+      temp = temp.right;
     }
     return temp;
   }
