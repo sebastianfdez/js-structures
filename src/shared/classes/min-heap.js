@@ -75,34 +75,4 @@ export default class MinHeap {
       parent = Math.floor(index/2);
     }
   }
-
-  toJSON() {
-    const structure = {};
-    structure['leaves'] = {};
-    if (this.size < 1) {
-      return structure;
-    }
-    structure.leaves.keys = [this.minheap[1]];
-    structure.children = this.appendChildren(1);
-    return structure;
-  }
-
-  appendChildren(i) {
-    const children = [];
-    if (2*i <= this.size) {
-      const node = {};
-      node['leaves'] = {};
-      node.leaves.keys = [this.minheap[2*i]];
-      node.children = this.appendChildren(2*i);
-      children.push(node);
-    }
-    if (2*i + 1 <= this.size) {
-      const node = {};
-      node['leaves'] = {};
-      node.leaves.keys = [this.minheap[2*i + 1]];
-      node.children = this.appendChildren(2*i + 1);
-      children.push(node);
-    }
-    return children;
-  }
 }
