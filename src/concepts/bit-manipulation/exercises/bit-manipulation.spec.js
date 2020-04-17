@@ -4,6 +4,7 @@ import { insertInto } from './insert-into';
 import { flipToWin } from './flip-bit-to-win';
 import { binaryToDecimal, numOf1 } from '../bm-utils';
 import { nextNumbers } from './next-number';
+import { convertAtoB } from './convertAtoB';
 
 describe('Concepts: Bit manipulation', function() {
   it('Check if number is inserted correctly at position i', function() {
@@ -57,5 +58,13 @@ describe('Concepts: Bit manipulation', function() {
       }
       expect(nextNumbers(i)).to.be.eql([bigger, smaller]);
     }
+  });
+  it('Get number of bit needs to flip to convert A in B', function() {
+    expect(convertAtoB(29, 15)).to.be(2);
+    expect(convertAtoB(25, 12)).to.be(3);
+    const ones = '1111111';
+    expect(convertAtoB(binaryToDecimal(ones + '0' + ones), binaryToDecimal(ones + '1' + ones))).to.be(1);
+    expect(convertAtoB(binaryToDecimal(ones + '01' + ones), binaryToDecimal(ones + '10' + ones))).to.be(2);
+    expect(convertAtoB(binaryToDecimal(ones + '010' + ones), binaryToDecimal(ones + '101' + ones))).to.be(3);
   });
 });
