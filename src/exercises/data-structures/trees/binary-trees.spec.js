@@ -138,7 +138,6 @@ describe('Exercises (Trees): Get the number of paths that sums a given number', 
   it(`Check if number of paths are find correctly`, function() {
     const tree = new BinarySearchTree();
     [2, -2, 6, -4, 0, 4, 8, -5, -3, -1, 1, 3, 5, 7, 9].forEach(v => tree.add(v));
-    console.log('Number of paths: ', findSumPaths(tree, 17));
   });
   it('returns 0 when no paths sum to value', function() {
     const tree = new BinarySearchTree();
