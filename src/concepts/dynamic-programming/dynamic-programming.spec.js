@@ -10,7 +10,7 @@ describe("Concepts: Dynamic Programming", function() {
         assert.equal(res, test.expected);
       });
     });
-  })
+  });
   describe("2) Problem: Maximum longest parentheses", function() {
     it(`Verify the longest parentheses found set is correct. ${testCases.length} tests`, function() {
       testCases.forEach((test) => {
@@ -18,5 +18,5 @@ describe("Concepts: Dynamic Programming", function() {
         assert.equal(res, test.expected);
       });
     });
-  })
+  });
 });
