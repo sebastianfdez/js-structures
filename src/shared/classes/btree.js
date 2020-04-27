@@ -78,17 +78,22 @@ export class BTreeNode {
   }
 
   /**
-   * Get the immediate with more values
+   * Get the immediate with more values. If there no one with extra 
+   * values, return one of the immediate brothers
    * @returns {BTreeNode}
    */
   getImmediateBrother() {
+    // Get position of node in parent children list
     const index = this.parent.children.indexOf(this);
     if (index > 0 && this.parent.children[index-1].n > this.tree.order - 1) {
+      // Previous child exists and has more than t-1 values
       return this.parent.children[index-1];
     }
     if (index < this.parent.n && this.parent.children[index+1].n > this.tree.order - 1) {
+      // Next child exists and has more than t-1 values
       return this.parent.children[index+1];
     }
+    // There is no brother with extra values, return any of them
     return index > 0 ? this.parent.children[index-1] : this.parent.children[index+1];
   }
 }
@@ -148,10 +153,11 @@ export default class BTree {
    */
   deleteFromNode(node, value) {
     if (node.leaf && node.n > this.order - 1) {
+      // Node is a leaf which is not minimally fill
       node.removeValue(node.values.indexOf(value));
       return;
     }
-    if (node.n <= this.order - 1 && node.parent) {
+    if (node.n <= this.order - 1 && node.leaf) {
       // Leaf with not enough values to delete
       // Get immediate brother with extra keys or the next one to mix with
       const brother = node.getImmediateBrother();
@@ -163,6 +169,7 @@ export default class BTree {
       if (!this.root.n) {
         this.root = this.root.children[0];
       }
+      // Recursively delete value from target node
       return this.deleteFromNode(node, value);
     }
     // Internal node with enough values to delete
@@ -188,14 +195,12 @@ export default class BTree {
     const indexo = origin.parent.children.indexOf(origin);
     const indext = origin.parent.children.indexOf(target);
     if (indexo < indext) {
-      const valuesFrame = [target.parent.values[indexo], origin.values[origin.n-1]];
       target.addValue(target.parent.removeValue(indexo));
       origin.parent.addValue(origin.removeValue(origin.n-1));
       if (!origin.leaf) {
         target.addChild(origin.deleteChild(origin.children.length-1), 0);
       }
     } else {
-      const valuesFrame = [target.parent.values[indext], origin.values[0]];
       target.addValue(target.parent.removeValue(indext));
       origin.parent.addValue(origin.removeValue(0));
       if (!origin.leaf) {
@@ -233,8 +238,10 @@ export default class BTree {
   insert(value) {
     const actual = this.root;
     if (actual.n === 2 * this.order - 1) {
+      // Create a new node to become the root
+      // Append the old root to the new one
       const temp = new BTreeNode(false);
-      temp.tree = this.root.tree;
+      temp.tree = this;
       this.root = temp;
       temp.addChild(actual, 0);
       this.split(actual, temp, 1);
@@ -253,8 +260,8 @@ export default class BTree {
   split(child, parent, pos) {
     const newChild = new BTreeNode(child.leaf);
     newChild.tree = this.root.tree;
-    // Create a new child for the parent
-    // Trasspass values from the old child to the new
+    // Create a new child
+    // Pass values from the old child to the new
     for (let k = 1; k < this.order; k++) {
       newChild.addValue(child.removeValue(this.order));
     }
@@ -266,14 +273,8 @@ export default class BTree {
     }
     // Add new child to the parent
     parent.addChild(newChild, pos);
-    // Add traspassed value to parent
-    const parentValue = child.removeValue(this.order - 1);
-    parent.addValue(parentValue);
-    // Highlight the splitted nodes
-    const values = [];
-    values.push(...child.values);
-    values.push(...newChild.values);
-    values.push(parentValue);
+    // Pass value to parent
+    parent.addValue(child.removeValue(this.order - 1));
     parent.leaf = false;
   }
 
@@ -283,23 +284,20 @@ export default class BTree {
    * @param {number} value
    */
   insertNonFull(node, value) {
-    let temp = node.n;
     if (node.leaf) {
       node.addValue(value);
-    } else {
-      while (temp >= 1 && value < node.values[temp - 1]) {
-        // Insert frame for each value compared
-        temp = temp - 1;
-      }
-      // Highlight next node
-      if (node.children[temp].n === 2 * this.order - 1) {
-        this.split(node.children[temp], node, temp + 1);
-        if (value  > node.values[temp]) {
-          temp = temp + 1;
-        }
-      }
-      this.insertNonFull(node.children[temp], value);
+      return;
     }
-  }        
-    
+    let temp = node.n;
+    while (temp >= 1 && value < node.values[temp - 1]) {
+      temp = temp - 1;
+    }
+    if (node.children[temp].n === 2 * this.order - 1) {
+      this.split(node.children[temp], node, temp + 1);
+      if (value  > node.values[temp]) {
+        temp = temp + 1;
+      }
+    }
+    this.insertNonFull(node.children[temp], value);
+  } 
 }
