@@ -76,26 +76,6 @@ export class BTreeNode {
   deleteChild(pos) {
     return this.children.splice(pos, 1)[0];
   }
-
-  /**
-   * Get the immediate with more values. If there no one with extra 
-   * values, return one of the immediate brothers
-   * @returns {BTreeNode}
-   */
-  getImmediateBrother() {
-    // Get position of node in parent children list
-    const index = this.parent.children.indexOf(this);
-    if (index > 0 && this.parent.children[index-1].n > this.tree.order - 1) {
-      // Previous child exists and has more than t-1 values
-      return this.parent.children[index-1];
-    }
-    if (index < this.parent.n && this.parent.children[index+1].n > this.tree.order - 1) {
-      // Next child exists and has more than t-1 values
-      return this.parent.children[index+1];
-    }
-    // There is no brother with extra values, return any of them
-    return index > 0 ? this.parent.children[index-1] : this.parent.children[index+1];
-  }
 }
 
 /**
@@ -114,25 +94,21 @@ export default class BTree {
   }
 
   /**
-   * Deletes the value from the Tree
+   * Search a value in the Tree and return the node. O(log N)
    * @param {number} value 
+   * @returns {BTreeNode}
    */
-  delete(value) {
-    if (this.root.n === 1 && !this.root.leaf &&
-      this.root.children[0].n === this.order-1 && this.root.children[1].n === this.order -1) {
-      // Check if the root can shrink the tree into its childs
-      this.mixNodes(this.root.children[1], this.root.children[0]);
-      this.root = this.root.children[0];
-    }
-    let actual = this.root;
-    let nodeWithKey = null;
+  searchValue(value) {
     // Find the node that contains the value
-    while (!nodeWithKey && actual) {
+    const node = null;
+    const actual = this.root;
+    while (!node && actual) {
       if (actual.values.includes(parseInt(value))) {
-        nodeWithKey = actual;
+        node = actual;
       } else {
         // Search in the childs
         if (actual.leaf) {
+          // Value was not found
           actual = null;
         } else {
           let child = 0;
@@ -143,7 +119,22 @@ export default class BTree {
         }
       }
     }
-    this.deleteFromNode(nodeWithKey, parseInt(value));
+    return node;
+  }
+    
+  /**
+   * Deletes the value from the Tree. O(log N)
+   * @param {number} value 
+   */
+  delete(value) {
+    if (this.root.n === 1 && !this.root.leaf &&
+      this.root.children[0].n === this.order-1 && this.root.children[1].n === this.order -1) {
+      // Check if the root can shrink the tree into its childs
+      this.mergeNodes(this.root.children[1], this.root.children[0]);
+      this.root = this.root.children[0];
+    }
+    // Start looking for the value to delete
+    this.deleteFromNode(this.root, parseInt(value));
   }
 
   /**
@@ -152,38 +143,66 @@ export default class BTree {
    * @param {number} value 
    */
   deleteFromNode(node, value) {
-    if (node.leaf && node.n > this.order - 1) {
-      // Node is a leaf which is not minimally fill
-      node.removeValue(node.values.indexOf(value));
+    // Check if value is in the actual node 
+    const index = node.values.indexOf(value);
+    if (index >= 0) {
+      // Value present in the node
+      if (node.leaf && node.n > this.order - 1) {
+        // If the node is a leaf and has more than order-1 values, just delete it
+        node.removeValue(node.values.indexOf(value));
+        return;
+      }
+      // Check if one children has enough values to transfer
+      if (node.children[index].n > this.order - 1 ||
+        node.children[index + 1].n > this.order - 1) {
+        // One of the immediate children has enough values to transfer
+        if (node.children[index].n > this.order - 1) {
+          // Replace the target value for the higher of left node.
+          // Then delete that value from the child
+          const predecessor = this.getMinMaxFromSubTree(node.children[index], 1);
+          node.values[index] = predecessor;
+          return this.deleteFromNode(node.children[index], predecessor);
+        }
+        const successor = this.getMinMaxFromSubTree(node.children[index+1], 0);
+        node.values[index] = successor;
+        return this.deleteFromNode(node.children[index+1], successor);
+      }
+      // Children has not enough values to transfer. Do a merge
+      this.mergeNodes(node.children[index + 1], node.children[index]);
+      return this.deleteFromNode(node.children[index], value);
+    }
+    // Value is not present in the node
+    if (node.leaf) {
+      // Value is not in the tree
       return;
     }
-    if (node.n <= this.order - 1 && node.leaf) {
-      // Leaf with not enough values to delete
-      // Get immediate brother with extra keys or the next one to mix with
-      const brother = node.getImmediateBrother();
-      if (brother.n > this.order - 1) {
-        this.transferValue(brother, node);
+    // Value is not present in the node, search in the children
+    let nextNode = 0;
+    while (nextNode < node.n && node.values[nextNode] < value) {
+      nextNode++;
+    }
+    if (node.children[nextNode].n > this.order - 1) {
+      // Child node has enough values to continue
+      return this.deleteFromNode(node.children[nextNode], value);
+    }
+    // Child node has not enough values to continue
+    // Before visiting next node transfer a value or merge it with a brother
+    if ((nextNode > 0 && node.children[nextNode - 1].n > this.order - 1) ||
+      (nextNode < node.n && node.children[nextNode + 1].n > this.order - 1)) {
+      // One of the immediate children has enough values to transfer
+      if (nextNode > 0 && node.children[nextNode - 1].n > this.order - 1) {
+        this.transferValue(node.children[nextNode - 1], node.children[nextNode]);
       } else {
-        this.mixNodes(brother, node);
+        this.transferValue(node.children[nextNode + 1], node.children[nextNode]);
       }
-      if (!this.root.n) {
-        this.root = this.root.children[0];
-      }
-      // Recursively delete value from target node
-      return this.deleteFromNode(node, value);
+      return this.deleteFromNode(node.children[nextNode], value);
     }
-    // Internal node with enough values to delete
-    const index = node.values.indexOf(value);
-    if (node.children[index].n > this.order - 1) {
-      this.transferValue(node.children[index], node.children[index + 1]);
-      return this.deleteFromNode(node.children[index + 1], value);
-    }
-    if (node.children[index + 1].n > this.order - 1) {
-      this.transferValue(node.children[index + 1], node.children[index]);
-    } else {
-      this.mixNodes(node.children[index + 1], node.children[index]);
-    }
-    return this.deleteFromNode(node.children[index], value);
+    // No immediate brother with enough values.
+    // Merge node with immediate one brother
+    this.mergeNodes(
+      nextNode > 0 ? node.children[nextNode - 1] : node.children[nextNode + 1],
+      node.children[nextNode]);
+    return this.deleteFromNode(node.children[nextNode], value);
   }
 
   /**
@@ -210,18 +229,20 @@ export default class BTree {
   }
 
   /**
-   * Mix 2 nodes into one
+   * Merge 2 nodes into one with the parent median value. O(1)
    * @param {BTreeNode} origin 
    * @param {BTreeNode} target 
   */
-  mixNodes(origin, target) {
+  mergeNodes(origin, target) {
     const indexo = origin.parent.children.indexOf(origin);
     const indext = target.parent.children.indexOf(target);
     target.addValue(target.parent.removeValue(Math.min(indexo, indext)));
     for (let i = origin.n - 1; i >= 0; i--) {
       target.addValue(origin.removeValue(i));
     }
+    // Remove reference to origin node
     target.parent.deleteChild(indexo);
+    // Transfer all the children from origin node to target
     if (!origin.leaf) {
       while (origin.children.length) {
         indexo > indext ?
@@ -276,6 +297,19 @@ export default class BTree {
     // Pass value to parent
     parent.addValue(child.removeValue(this.order - 1));
     parent.leaf = false;
+  }
+
+  /**
+   * Get the lower or higher value in a sub-tree
+   * @param {BTreeNode} node 
+   * @param { 0 | 1 } max 1 for find max, 0 for min
+   * @returns {number}
+   */
+  getMinMaxFromSubTree(node, max) {
+    while (!node.leaf) {
+      node = node.children[max ? node.n : 0];
+    }
+    return node.values[max ? node.n - 1 : 0];
   }
 
   /**
