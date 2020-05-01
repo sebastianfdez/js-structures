@@ -199,10 +199,10 @@ export default class BTree {
     }
     // No immediate brother with enough values.
     // Merge node with immediate one brother
-    this.mergeNodes(
-      nextNode > 0 ? node.children[nextNode - 1] : node.children[nextNode + 1],
-      node.children[nextNode]);
-    return this.deleteFromNode(node.children[nextNode], value);
+    const target = node.children[nextNode];
+    const origin = nextNode > 0 ? node.children[nextNode - 1] : node.children[nextNode + 1];
+    this.mergeNodes(origin, target,sequence);
+    return this.deleteFromNode(target, value, sequence);
   }
 
   /**
