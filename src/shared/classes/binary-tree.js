@@ -65,12 +65,12 @@ export function listToTree(list) {
  * @param {number[]} list list of numbers
  * @param {number} pos position of the actual node
  */
-var appendChildsRec = function(node, list, pos) {
-  if (2*pos < list.length) {
+var appendChildsRec = function(node, list, pos, nullAccept = true) {
+  if (2*pos < list.length && list[2*pos]) {
     node.left = new BinaryTreeNode(list[2*pos]);
     appendChildsRec(node.left, list, 2*pos);
   }
-  if (2*pos + 1 < list.length) {
+  if (2*pos + 1 < list.length && list[2*pos + 1]) {
     node.right = new BinaryTreeNode(list[2*pos + 1]);
     appendChildsRec(node.right, list, 2*pos + 1);
   }
